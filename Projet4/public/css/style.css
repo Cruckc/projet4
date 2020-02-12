@@ -1,0 +1,11 @@
+ul
+{
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+}
+li
+{
+	padding: 0 5px 0 5px;
+	font-size: 2em;
+}
