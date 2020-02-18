@@ -27,22 +27,21 @@
 
 <section id="comment_form">
 	<form action="index.php?page=post&id=<?= $post->id; ?>" method="post">
+
 		<div>
 			<label id="pseudo">Votre pseudo</label><br />
 			<input id="pseudo_input" type="text" name="pseudo" placeholder="Pseudo">
 		</div>
+
 		<div>
 			<label id="comment">Votre commentaire</label><br />
 			<textarea id="comment_input" name="message" placeholder="Commentaire"></textarea>
 		</div>
+
 		<div id="div_btn">
 			<input id="Valider" type="submit" name="envoyer" value="Envoyer">
 		</div>
-		
-		
 	</form>
-
-
 </section>
 
 

@@ -29,7 +29,24 @@ class FrontEndController
 	{
 		if ($_POST)
 		{
-			if (!empty($_POST['pseudo']) && !empty($_POST['message']))
+			$valid = true;
+
+			if (empty($_POST['pseudo']) || empty($_POST['message']))
+			{
+				$valid = false;
+			}
+
+			if (strlen($_POST['pseudo']) >= 20)
+			{
+				$valid = false;
+			}
+
+			if (strlen($_POST['message']) >= 500)
+			{
+				$valid = false;
+			}
+
+			if ($valid)
 			{
 				$comment = new App\Model\Comment([
 					'pseudo' => $_POST['pseudo'],
