@@ -43,7 +43,14 @@ elseif ($page === 'admin')
 {
 	Controller\Backend::viewAdmin();
 }
-
+elseif ($page === 'newpost') 
+{
+	Controller\Backend::viewNewpost();
+}
+elseif ($page === 'edit') 
+{
+	Controller\Backend::viewEditpost();
+}
 
 
 else

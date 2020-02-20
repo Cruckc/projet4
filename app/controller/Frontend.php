@@ -30,7 +30,19 @@ class Frontend
 
 	public static function viewPost()
 	{
-		$posts = Post::getPost();
+		$postId = $_GET['id'];
+		$valid = Post::exists($postId);
+
+		if ($valid)
+		{
+			$posts = Post::getPost($postId);
+		}
+		else
+		{
+			header('Location: index.php?page=notfound');
+			exit();
+		}
+		
 		$comments = Comment::getComments();
 
 		if (isset($_POST['envoyer']))
@@ -83,13 +95,6 @@ class Frontend
 			{
 				header('Location: index.php?page=error');
 			}
-		}
-
-		$valid = Post::exists($_GET['id']);
-
-		if (!$valid)
-		{
-			header('Location: index.php?page=error');
 		}
 
 		require 'view/frontend/post.php';

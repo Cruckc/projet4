@@ -7,16 +7,16 @@ class Post extends Model
 {
 	public static function getAllPost()
 	{
-		return App::getDb()->query('SELECT * FROM posts', get_called_class(), false);
+		return App::getDb()->query('SELECT * FROM posts ORDER BY created DESC', get_called_class(), false);
 	}
 	public static function getLast()
 	{
 		return App::getDb()->query('SELECT * FROM posts WHERE online = 1 ORDER BY created DESC',  get_called_class(), false);
 	}
 
-	public static function getPost()
+	public static function getPost($id)
 	{
-		return App::getDb()->prepareFetch('SELECT * FROM posts WHERE id= ?', [$_GET['id']], get_called_class(), false);
+		return App::getDb()->prepareFetch('SELECT * FROM posts WHERE id= ?', [$id], get_called_class(), false);
 	}
 
 	public static function exists($id)
@@ -45,16 +45,27 @@ class Post extends Model
 
 	public function insert()
 	{
-
+		App::getDb()->prepare('INSERT INTO posts (title, content, created, online) VALUES (:title, :content, NOW(), :online)',
+			array(
+				':title' => $this->title,
+				':content' => $this->content,
+				':online' => $this->online,
+			));
 	}
-
-	public function delete()
+	public function update($id)
 	{
-
+		App::getDb()->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?',
+			array(
+				$this->title,
+				$this->content,
+				$id,
+			));
 	}
 
-	public function update()
+	public static function remove($id)
 	{
-		
+		App::getDb()->prepare('DELETE FROM posts WHERE id = ?', [$id]);
 	}
+
+	
 }
