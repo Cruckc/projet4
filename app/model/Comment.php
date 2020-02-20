@@ -1,142 +1,65 @@
 <?php
 namespace App\Model;
+use App\App;
+use App\Model\Model;
 
-class Comment
+class Comment extends Model 
 {
-    protected   $id,
-                $pseudo,
-                $content,
-                $created,
-                $id_post;
+	public static function getReported()
+	{
+		return App::getDb()->query('
+			SELECT comments.id, pseudo, comments.content, comments.created, comments.reported, posts.title 
+			FROM comments
+			INNER JOIN posts ON comments.id_post = posts.id
+			ORDER BY reported DESC, created DESC',
+			get_called_class(), false);
+	}
+	public static function getComments()
+	{
+		return App::getDb()->prepareFetch('
+			SELECT comments.id, id_post, pseudo, comments.content, comments.created 
+			FROM comments 
+			INNER JOIN posts ON comments.id_post = posts.id
+			WHERE posts.id = ?
+			ORDER BY comments.created DESC', 
+			array($_GET['id']), get_called_class(), false);
+	}
 
-    public function __construct(Array $data)
-    {
-        $this->hydrate($data);
-    }
+	public static function exists($id)
+	{
+		if (is_numeric($id))
+		{
+			return App::getDb()->prepareFetch('SELECT id FROM comments where id = ?', [$id], get_called_class(), true);
+		}
+		else
+		{
+			return false;
+		}
+	}
 
-    public function hydrate($data)
-    {
-        if (isset($data['id']))
-        {
-            $this->setId($data['id']);
-        }
+	public function insert()
+	{
+		App::getDb()->prepare('INSERT INTO comments (pseudo, content, created, reported, id_post) VALUES(:pseudo, :content, NOW(), 0, :id_post)',
+			array(
+				':pseudo' => $this->pseudo,
+				':content' => $this->content,
+				':id_post' => $this->id_post,
+			));
+	}
 
-        if (isset($data['id_post']))
-        {
-            $this->setId_post($data['id_post']);
-        }
+	public static function report($id)
+	{
+		App::getDb()->prepare('UPDATE comments SET reported = 1 WHERE id = ?', [$id]);
+	}
 
-        if (isset($data['pseudo']))
-        {
-            $this->setPseudo($data['pseudo']);
-        }
+	public static function accept($id)
+	{
+		App::getDb()->prepare('UPDATE comments SET reported = 0 WHERE id = ?', [$id]);
+	}
 
-        if (isset($data['content']))
-        {
-            $this->setContent($data['content']);
-        }
+	public static function remove($id)
+	{
+		App::getDb()->prepare('DELETE FROM comments WHERE id = ?', [$id]);
+	}
 
-        if (isset($data['created']))
-        {
-            $this->setCreated($data['created']);
-        }
-
-        if (isset($data['report']))
-        {
-            $this->setReport($data['report']);
-        }
-
-        if (isset($data['title']))
-        {
-            $this->setTitle($data['title']);
-        }
-    }
-
-    // GETTERS
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getId_post()
-    {
-        return $this->id_post;
-    }
-
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
-
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getReport()
-    {
-        return $this->report;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    // SETTERS
-
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function setId_post($id_post)
-    {
-        $this->id_post = $id_post;
-
-        return $this;
-    }
-
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = htmlspecialchars($pseudo);
-
-        return $this;
-    }
-
-    public function setContent($content)
-    {
-        $this->content = htmlspecialchars($content);
-
-        return $this;
-    }
-
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    public function setReport($report)
-    {
-        $this->report = $report;
-
-        return $this;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = htmlspecialchars($title);
-
-        return $this;
-    }
 }

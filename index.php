@@ -3,6 +3,7 @@ namespace App;
 require 'app/Autoloader.php';
 
 Autoloader::register();
+session_start();
 
 if(isset($_GET['page']))
 {
@@ -16,23 +17,38 @@ else
 ob_start();
 if($page === 'home')
 {
-	Controller\FrontEndController::viewHome();
+	Controller\Frontend::viewHome();
 }
 elseif ($page === 'biography') 
 {
-	Controller\FrontEndController::viewBiography();
+	Controller\Frontend::viewBiography();
 }
 elseif ($page === 'chapter') 
 {
-	Controller\FrontEndController::viewChapter();
+	Controller\Frontend::viewChapter();
 }
 elseif ($page === 'post') 
 {
-	Controller\FrontEndController::viewPost();
+	Controller\Frontend::viewPost();
 }
+elseif ($page === 'signup')
+{
+	Controller\Backend::viewSignup();
+}
+elseif ($page === 'login') 
+{
+	Controller\Backend::viewLogin();	
+}
+elseif ($page === 'admin') 
+{
+	Controller\Backend::viewAdmin();
+}
+
+
+
 else
 {
-	Controller\FrontEndController::viewError();
+	Controller\Frontend::viewNotFound();
 }
 
 

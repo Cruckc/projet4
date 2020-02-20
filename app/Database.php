@@ -36,7 +36,6 @@ class Database
 	{
 		$req = $this->getPdo()->query($statement);
 		$req->setFetchMode(PDO::FETCH_CLASS, $class);
-
 		if ($one)
 		{
 			$datas = $req->fetch();

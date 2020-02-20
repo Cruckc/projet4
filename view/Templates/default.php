@@ -16,6 +16,9 @@
 		<li class="nav_item">
 			<a class="nav_link" href="index.php?page=biography">Biographie</a>
 		</li>
+		<li class="nav_item">
+			<a class="nav_link" href="index.php?page=admin">Admin</a>
+		</li>
 	</ul>
 </nav>
 
