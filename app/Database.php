@@ -1,6 +1,5 @@
 <?php
 namespace App;
-
 use PDO;
 
 class Database
@@ -10,7 +9,6 @@ class Database
 			$db_pass,
 			$db_host,
 			$pdo;
-
 
 	public function __construct($db_name, $db_user = 'root', $db_pass = '', $db_host = 'localhost')
 	{
@@ -28,7 +26,6 @@ class Database
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->pdo = $pdo;
 		}
-
 		return $this->pdo;
 	}
 
@@ -62,7 +59,6 @@ class Database
 		{
 			$datas = $req->fetchAll();
 		}
-
 		return $datas;
 	}
 
@@ -71,7 +67,4 @@ class Database
 		$req = $this->getPdo()->prepare($statement);
 		$req->execute($attributes);
 	}
-
-
-
 }
