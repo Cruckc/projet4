@@ -66,13 +66,18 @@ class Frontend
 
 			if ($valid)
 			{
+				$pseudo = htmlspecialchars($_POST['pseudo']);
+				$content = htmlspecialchars($_POST['message']);
 				$comment = new Comment([
-					'pseudo' => $_POST['pseudo'],
-					'content' => $_POST['message'],
+					'pseudo' => $pseudo,
+					'content' => $content,
 					'id_post' => $_GET['id'],
 				]);
 
 				$comment->insert();
+
+				header('Location: index.php?page=post&id=' . $postId);
+				exit();
 			}
 			else
 			{

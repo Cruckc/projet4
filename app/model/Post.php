@@ -11,7 +11,7 @@ class Post extends Model
 	}
 	public static function getLast()
 	{
-		return App::getDb()->query('SELECT * FROM posts WHERE online = 1 ORDER BY created DESC',  get_called_class(), false);
+		return App::getDb()->query('SELECT * FROM posts WHERE online = 1 ORDER BY created ASC',  get_called_class(), false);
 	}
 
 	public static function getPost($id)
@@ -38,8 +38,8 @@ class Post extends Model
 
 	public function getExcert()
 	{
-		$html = '<p>' . substr($this->content, 0, 100) . '</p>';
-		$html .= '<p><a href="' . $this->getUrl() . '">Lire la suite</a></p>';
+		$html = '<p class="post_excert">' . substr($this->content, 0, 350) . '...</p>';
+		$html .= '<p><a class="excert_btn" href="' . $this->getUrl() . '">Lire la suite</a></p>';
 		return $html;
 	}
 

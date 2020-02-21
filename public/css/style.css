@@ -1,11 +1,236 @@
-ul
+/* ------------- View Frontend-------------- */
+/* -------------Default-------------- */
+#body_front
 {
+	margin: 0;
+	background: url(../img/denali_alaska_chapter.jpg) fixed no-repeat center;
+	background-size: cover;
+	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%),
+    				url(../img/denali_alaska_chapter.jpg);
+}
+nav
+{
+	background-color: #E0E1E2;
+}
+#ul_container
+{
+	margin: 0 20%;
 	list-style-type: none;
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
 }
-li
+.nav_item
 {
-	padding: 0 5px 0 5px;
+	padding: 10px;
+	font-size: 1.5em;
+}
+.nav_link, .nav_link:link, .nav_link:visited
+{
+	color: grey;
+	text-decoration: none;
+}
+.nav_item:hover
+{
+	border-radius: 5px;
+	background-color: #C0C1C2;
+}
+
+/* -------------Chapter-------------- */
+.title_container
+{
+	text-align: center;
+	margin: auto;
+	width: 30%;
+}
+.title_container h1
+{
+	color: #ACD7FD;
+	font-size: 3em;
+}
+.title_container h2
+{
+	color: #C4E3FE;
+	font-size: 2.5em;
+}
+.title_container h5
+{
+	color: #C4E3FE;
+	font-size: 2.5em;
+}
+.posts_container
+{
+	text-align: left;
+	width: 60%;
+	margin: auto;
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+.info_posts
+{
+	font-size: 1.2em;
+	padding: 10px;
+	margin: auto;
+	text-align: center;
+}
+.post_container
+{
+	width: 80%;
+	margin: auto;
+	margin-top: 50px;
+	padding: 20px;
+	background-color: #F1F9FF;
+	border-radius: 5px;
+}
+.title_date_container
+{
+	
+}
+.post_title
+{
 	font-size: 2em;
+	margin: 0;
+}
+.post_created
+{
+	margin-top: 2px;
+}
+.post_excert
+{
+	margin-top: 10px;
+	margin-bottom: 35px;
+}
+.excert_btn:link, .excert_btn:visited
+{
+	color: #245581;
+}
+.excert_btn
+{
+	padding: 10px;
+ 	background-color: #ABD8FF;
+ 	border-radius: 5px;
+ 	color: #245581;
+ 	text-decoration: none;
+}
+
+/* -------------Post-------------- */
+.post_container .publish
+{
+	font-size: 1.2em;
+}
+.post_container p
+{
+	font-size: 1.3em;
+}
+.comments_container h5
+{
+	font-size: 2em;
+	text-align: center;
+	padding-top: 10px;
+	color: white;
+}
+.comments_container
+{
+	text-align: left;
+	width: 60%;
+	margin: auto;
+	padding-bottom: 20px;
+	border-radius: 5px;
+	background-color: rgba(87, 126, 181, 0.8);
+}
+.comment_container
+{
+	position: relative;
+	width: 80%;
+	height: 200px;
+	padding: 5px 0 5px 15px;
+	background-color: #F1F9FF;
+	border-radius: 5px;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+}
+.pseudo
+{
+	font-size: 1.4em;
+	
+}
+.pseudo_publish
+{
+	width: 15%;
+	margin: auto 0 auto 0;
+}
+.content
+{
+	width: 70%;
+	font-size: 1.2em;
+}
+.report_btn
+{
+	position: absolute;
+	right: 25px;
+	bottom: 25px;
+	padding: 10px;
+	height: 20px;
+ 	background-color: #ABD8FF;
+ 	border-radius: 5px;
+ 	color: #245581;
+ 	text-decoration: none;
+ 	text-align: center;
+}
+.form_container
+{
+	width: 60%;
+	margin: auto;
+	border-radius: 5px;
+	background-color: rgba(87, 126, 181, 0.8);
+	margin-top: 100px;
+	margin-bottom: 50px;
+	padding-bottom: 25px;
+}
+.form_container h5
+{
+	font-size: 2em;
+	text-align: center;
+	padding-top: 10px;
+	color: white;
+}
+.form_group
+{
+	display: flex;
+	flex-direction: column;
+	padding: 8px 0 8px 0;
+	margin: 5px;
+	margin: auto;
+	padding-left: 15%;
+}
+#pseudo_input, #comment_input
+{
+	width: 80%;
+	padding: 10px;
+	border-radius: 5px;
+	border: none;
+}
+#comment_input
+{
+	padding-bottom: 80px;
+	margin-bottom: 10px;
+}
+#pseudo_label, #comment_label
+{
+	color: white;
+	font-size: 1.2em;
+	padding-bottom: 5px;
+}
+.comment_btn_container
+{
+	text-align: center;
+}
+.comment_btn
+{
+	background-color: #ABD8FF;
+	border: none;
+ 	border-radius: 5px;
+ 	color: #245581;
+ 	padding: 10px;
 }
