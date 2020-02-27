@@ -1,14 +1,11 @@
-<section class="section_container">
-	<div class="title_container">
+<section class="section_container chapter">
+	<div class="title_container chapter">
 		<h1>Billet simple pour l'Alaska</h1>
-		<h5>Chapitres</h5>
 	</div>
-	<div class="posts_container">
-		<div class="info_posts">
+	<div class="content_container">
+		<div class="info_container info_posts">
 			<p>	Retrouvez ici l'ensemble des chapitres du roman "Biller simple pour l'Alaska" écrit par Jean FORTEROCHE.<br />
-				Les chapitres sont triés par ordre croissant, allant du chapitre plus ancien au plus récent.<br />
-				Vous pourrez poster un commentaire à la fin de chaque publication.<br />
-				Bonne lecture !</p>
+				Je vous souhaite une bonne lecture, n'hésitez pas à commenter !</p>
 		</div>
 		<?php foreach ($posts as $post): ?>
 			<div class="post_container">

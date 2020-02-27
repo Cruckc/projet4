@@ -1,42 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-
-	<form method="post" action="">
-		<div>
-			<label>Login</label>
-			<input type="text" name="pseudo" required>
+<section class="section_container">
+	<form class="form_container admin signup" method="post" action="">
+		<h5>Inscrivez-vous</h5>
+		<?php if ($error): ?>
+			<p class="text_error">Le formulaire n'a pas été correctement renseigné, veuillez rééessayer !</p>
+		<?php endif; ?>
+		<div class="form_group">
+			<label class="pseudo_label">Login / Pseudo</label>
+			<input class="pseudo_input" type="text" name="pseudo" required>
 		</div>
-		<div>
-			<label>Password</label>
-			<input type="password" name="password" required>
+		<div class="form_group">
+			<label class="password_label">Password</label>
+			<input class="password_input" type="password" name="password" required>
 		</div>
-		<div>
-			<label>Confirmation Password</label>
-			<input type="password" name="confirmation_password" required>
+		<div class="form_group">
+			<label class="password_label">Confirmation Password</label>
+			<input class="password_input" type="password" name="confirmation_password" required>
 		</div>
-		<div>
-			<label>Votre Email</label>
-			<input type="email" name="email" required>
+		<div class="form_group">
+			<label class="email_label">Votre Email</label>
+			<input class="email_input" type="email" name="email" required>
 		</div>
-		<div>
-			<input type="submit" name="signup" value="S'inscrire">
+		<div class="form_container_btn">
+			<input class="controls control_btn" type="submit" name="signup" value="S'inscrire">
 		</div>
-		<div>
-			<p>Déjà inscrit ? Veuillez vous <a href="index.php?page=login">connecter</a>.</p>
-		</div>
+		<p class="ask_register">Déjà inscrit ? <a class="controls login" href="index.php?page=login"> Se connecter</a>.</p>
 	</form>
-<?php
-if ($error)
-{
-	echo '<p>Le formulaire n\'a pas été correctement renseigné, veuillez rééessayer !</p>'
-?>
-<?php
-}
-?>
+</section>
 
-</body>
-</html>
+
+

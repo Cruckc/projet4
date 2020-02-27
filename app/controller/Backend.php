@@ -151,12 +151,25 @@ class Backend
 				exit();
 			}
 		}
+		elseif (!empty($_GET['postid']) && Post::exists($_GET['postid']) && $_GET['event'] === 'online')
+		{
+			Post::online($_GET['postid']);
+			header('Location: index.php?page=admin');
+			exit();
+		}
+		elseif (!empty($_GET['postid']) && Post::exists($_GET['postid']) && $_GET['event'] === 'draft')
+		{
+			Post::draft($_GET['postid']);
+			header('Location: index.php?page=admin');
+			exit();
+		}
 		elseif (!empty($_GET['postid']) && Post::exists($_GET['postid']) && $_GET['event'] === 'remove') 
 		{
 			Post::remove($_GET['postid']);
 			header('Location: index.php?page=admin');
 			exit();
 		}
+
 
 		require 'view/backend/admin.php';
 	}
@@ -174,6 +187,8 @@ class Backend
 				]);
 
 				$post->insert();
+				header('Location: index.php?page=admin');
+				exit();
 			}		
 			elseif (isset($_POST['draft'])) 
 			{
@@ -184,6 +199,8 @@ class Backend
 				]);
 
 				$post->insert();
+				header('Location: index.php?page=admin');
+				exit();
 			}
 			else
 			{
@@ -207,29 +224,47 @@ class Backend
 			$postId = $_GET['id'];
 			$posts = Post::getPost($postId);
 			
-			if (isset($_POST['edit']) && $_POST['edit'] == 'Valider')
+			if (!empty($_POST['title']) && !empty($_POST['content']))
 			{
-				$title = htmlspecialchars($_POST['title']);
-				$content = $_POST['content'];
-				$post = new Post([
-					'title' => $title,
-					'content' => $content,
-				]);
-				
-				$post->update($postId);
-				
-				header('Location: index.php?page=admin');
+				if (isset($_POST['edit']))
+				{
+					$title = htmlspecialchars($_POST['title']);
+					$content = $_POST['content'];
+					$post = new Post([
+						'title' => $title,
+						'content' => $content,
+					]);
+					
+					$post->update($postId);
+					
+					header('Location: index.php?page=admin');
+					exit();
+				}
+			}
+			else
+			{
+				$error = true;
+			}
+
+			if (isset($_POST['online']))
+			{
+				Post::online($_GET['id']);
+				header('Location: index.php?page=edit&id=' . $_GET['id']);
 				exit();
 			}
+			elseif (isset($_POST['draft']))
+			{
+				Post::draft($_GET['id']);
+				header('Location: index.php?page=edit&id=' . $_GET['id']);
+				exit();
+			}
+		
 		}
 		else
 		{
 			header('Location: index.php?page=notfound');
 			exit();
 		}
-
-		
 		require 'view/backend/editpost.php';
 	}
-
 }

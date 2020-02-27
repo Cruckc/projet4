@@ -9,9 +9,9 @@ class Post extends Model
 	{
 		return App::getDb()->query('SELECT * FROM posts ORDER BY created DESC', get_called_class(), false);
 	}
-	public static function getLast()
+	public static function getOnline()
 	{
-		return App::getDb()->query('SELECT * FROM posts WHERE online = 1 ORDER BY created ASC',  get_called_class(), false);
+		return App::getDb()->query('SELECT * FROM posts WHERE online = 1 ORDER BY created DESC',  get_called_class(), false);
 	}
 
 	public static function getPost($id)
@@ -39,7 +39,7 @@ class Post extends Model
 	public function getExcert()
 	{
 		$html = '<p class="post_excert">' . substr($this->content, 0, 350) . '...</p>';
-		$html .= '<p><a class="excert_btn" href="' . $this->getUrl() . '">Lire la suite</a></p>';
+		$html .= '<p><a class=" controls control_excert" href="' . $this->getUrl() . '">Lire la suite</a></p>';
 		return $html;
 	}
 
@@ -54,10 +54,24 @@ class Post extends Model
 	}
 	public function update($id)
 	{
-		App::getDb()->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?',
+		App::getDb()->prepare('UPDATE posts SET title = ?, content = ?, updated = NOW() WHERE id = ?',
 			array(
 				$this->title,
 				$this->content,
+				$id,
+			));
+	}
+	public static function online($id)
+	{
+		App::getDb()->prepare('UPDATE posts SET online = 1 WHERE id = ?',
+			array(
+				$id,
+			));
+	}
+	public static function draft($id)
+	{
+		App::getDb()->prepare('UPDATE posts SET online = 0 WHERE id = ?',
+			array(
 				$id,
 			));
 	}
@@ -65,7 +79,5 @@ class Post extends Model
 	public static function remove($id)
 	{
 		App::getDb()->prepare('DELETE FROM posts WHERE id = ?', [$id]);
-	}
-
-	
+	}	
 }

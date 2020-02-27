@@ -19,7 +19,7 @@ class Frontend
 
 	public static function viewChapter()
 	{
-		$posts = Post::getLast();
+		$posts = Post::getOnline();
 		require 'view/frontend/chapter.php';
 	}
 
@@ -30,10 +30,12 @@ class Frontend
 
 	public static function viewPost()
 	{
+		$comments = Comment::getComments();
 		$postId = $_GET['id'];
-		$valid = Post::exists($postId);
+		$validId = Post::exists($postId);
+		$error = null;
 
-		if ($valid)
+		if ($validId)
 		{
 			$posts = Post::getPost($postId);
 		}
@@ -42,25 +44,24 @@ class Frontend
 			header('Location: index.php?page=notfound');
 			exit();
 		}
-		
-		$comments = Comment::getComments();
 
-		if (isset($_POST['envoyer']))
+		if (isset($_POST['submit_comment']))
 		{
 			$valid = true;
 
 			if (empty($_POST['pseudo']) || empty($_POST['message']))
 			{
 				$valid = false;
+				$error = true;
 			}
-
-			if (strlen($_POST['pseudo']) >= 20)
+			if (strlen($_POST['pseudo']) >= 50)
 			{
+				$error = true;
 				$valid = false;
 			}
-
 			if (strlen($_POST['message']) >= 500)
 			{
+				$error = true;
 				$valid = false;
 			}
 
@@ -81,20 +82,21 @@ class Frontend
 			}
 			else
 			{
-				//ERREUR
+				$error = true;
 			}
 		}
 
-		//Signalement commentaire + check $_GET['comment']
+		//Signalement commentaire + check $_GET['comment'] ($id)
 
 		if (isset($_GET['comment']) && !empty($_GET['comment']))
 		{
 			$valid = Comment::exists($_GET['comment']);
-
 			if ($valid)
 			{
 				$reportId = $_GET['comment'];
 				Comment::report($reportId);
+				header('Location: index.php?page=post&id=' . $postId);
+				exit();
 			}
 			else
 			{

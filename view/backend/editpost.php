@@ -1,18 +1,31 @@
-<h4>Editer un article</h4>
-<?php foreach ($posts as $post): ?>
-<form method="post" action="">
-	<div>
-		<label>Titre du chapitre : </label><input type="text" name="title" value="<?= $post->title; ?>">
+<section class="section_container">
+	<?php foreach ($posts as $post): ?>
+	<div class="info_container back">
+		<div class="title_container back">
+			<h5>Editer un billet</h5>
+			<?php if ($post->online == 0): ?>
+				<p class="draft">Ceci est un brouillon</p>
+			<?php endif; ?>
+		</div>
 	</div>
-	<textarea name="content" placeholder="test" id="tinymce_text"><?= $post->content; ?></textarea>
-	<div>
-		<input type="submit" name="edit" value="Valider">
+	<div class="edit_container">
+		<form method="post" action="">
+			<div class="title_edit">
+				<label>Titre du billet </label>
+				<input type="text" name="title" value="<?= $post->title; ?>">
+			</div>
+			<div class="content_edit">
+				<textarea class="editor" name="content" ><?= $post->content; ?></textarea>
+			</div>
+			
+			<input class="controls publish_post" type="submit" name="edit" value="Valider">
+			<?php if ($post->online == 0): ?>
+				<input class="controls online_post" type="submit" name="online" value="Mettre en ligne">
+			<?php else: ?>
+				<input class="controls draft_post" type="submit" name="draft" value="Brouillon">
+			<?php endif; ?>
+
+		</form>
 	</div>
-</form>
-<?php endforeach; ?>
-<?php if ($error): ?>
-	<?= $error; ?>
-<?php endif; ?>
-<p>
-	<a href="index.php?page=admin">Admin</a>
-</p>
+	<?php endforeach; ?>
+</section>

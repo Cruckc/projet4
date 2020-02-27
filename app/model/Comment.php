@@ -17,7 +17,7 @@ class Comment extends Model
 	public static function getComments()
 	{
 		return App::getDb()->prepareFetch('
-			SELECT comments.id, id_post, pseudo, comments.content, comments.created 
+			SELECT comments.id, id_post, pseudo, comments.content, comments.created, comments.reported
 			FROM comments 
 			INNER JOIN posts ON comments.id_post = posts.id
 			WHERE posts.id = ?
@@ -61,5 +61,4 @@ class Comment extends Model
 	{
 		App::getDb()->prepare('DELETE FROM comments WHERE id = ?', [$id]);
 	}
-
 }

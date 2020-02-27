@@ -1,27 +1,22 @@
+<section class="section_container">
+	<form class="form_container admin login" method="post" action="">
+		<h5>Connexion au panneau d'administration</h5>
+		<?php if ($error) : ?>
+		<p class="text_error">L'utilisateur ou le mot de passe ne correspondent pas !</p>
+		<?php endif; ?>
+		<div class="form_group">
+			<label class="pseudo_label">Login / Pseudo</label>
+			<input class="pseudo_input" type="text" name="pseudo" required><br />
+		</div>
+		<div class="form_group">
+			<label class="password_label">Votre mot de passe</label>
+			<input class="password_input" type="password" name="password" required><br />
+		</div>
 
-<form method="post" action="">
-	<div>
-		<label>Votre pseudo</label>
-		<input type="text" name="pseudo" required><br />
-	</div>
-	<div>
-		<label>Votre mot de passe</label>
-		<input type="password" name="password" required><br />
-	</div>
-	<div>
-		<input type="submit" name="login" value="Se connecter">
-	</div>
-	<div>
-		<p><a href="index.php?page=signup">S'inscrire</a></p>
-	</div>
-</form>
-<?php
-if ($error)
-{
-	echo '<p>L\'utilisateur ou le mot de passe ne correspondent pas!</p>'
-?>
-<?php
-}
-?>
+		<div class="form_container_btn">
+			<input class="controls control_btn" type="submit" name="login" value="Se connecter">
+		</div>
+		<p class="ask_register">Pas encore inscrit ? <a class="controls signup" href="index.php?page=signup">S'inscrire</a></p>
+	</form>
 
-
+</section>
