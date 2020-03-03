@@ -1,8 +1,14 @@
 <?php
 namespace App;
-require 'app/Autoloader.php';
 
+use App\Controller\Frontend;
+use App\Controller\Backend;
+
+require 'Autoloader.php';
 Autoloader::register();
+
+
+
 session_start();
 
 if(isset($_GET['page']))
@@ -13,58 +19,57 @@ else
 {
 	$page = 'home';
 }
-
 ob_start();
 if($page === 'home')
 {
-	Controller\Frontend::viewHome();
+	Frontend::viewHome();
 	$pageTitle = 'Accueil';
 }
 elseif ($page === 'biography') 
 {
-	Controller\Frontend::viewBiography();
+	Frontend::viewBiography();
 	$pageTitle = 'Biographie';
 }
 elseif ($page === 'chapter') 
 {
-	Controller\Frontend::viewChapter();
+	Frontend::viewChapter();
 	$pageTitle = 'Billet simple pour l\'Alaska.';
 }
 elseif ($page === 'post') 
 {
-	Controller\Frontend::viewPost();
+	Frontend::viewPost();
 	$pageTitle = 'Billet';
 }
 elseif ($page === 'signup')
 {
-	Controller\Backend::viewSignup();
+	Backend::viewSignup();
 	$pageTitle = 'Inscrivez-vous';
 }
 elseif ($page === 'login') 
 {
-	Controller\Backend::viewLogin();
+	Backend::viewLogin();
 	$pageTitle = 'Connectez-vous';
 }
 elseif ($page === 'admin') 
 {
-	Controller\Backend::viewAdmin();
+	Backend::viewAdmin();
 	$pageTitle = 'Panneau d\'administration';
 }
 elseif ($page === 'newpost') 
 {
-	Controller\Backend::viewNewpost();
+	Backend::viewNewpost();
 	$pageTitle = 'Nouveau chapitre';
 }
 elseif ($page === 'edit') 
 {
-	Controller\Backend::viewEditpost();
+	Backend::viewEditpost();
 	$pageTitle = 'Editez un chapitre';
 }
 else
 {
-	Controller\Frontend::viewNotFound();
+	Frontend::viewNotFound();
 	$pageTitle = 'Error';
 }
 
 $content = ob_get_clean();
-require 'view/templates/default.php';
+require 'view/template/default.php';
